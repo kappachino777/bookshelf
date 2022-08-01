@@ -33,14 +33,30 @@ func (h handler) updateProductById(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
 	}
 
-	book.Name = body.Name
-	book.Year = body.Year
-	book.Author = body.Author
-	book.Summary = body.Summary
-	book.Publisher = body.Publisher
-	book.PageCount = body.PageCount
-	book.ReadPage = body.ReadPage
+	if body.Name != "" {
+		book.Name = body.Name
+	}
+	if body.Year != 0 {
+		book.Year = body.Year
+	}
+	if body.Author != "" {
+		book.Author = body.Author
+	}
+	if body.Summary != "" {
+		book.Summary = body.Summary
+	}
+	if body.Publisher != "" {
+		book.Publisher = body.Publisher
+	}
+	if body.PageCount != 0 {
+		book.PageCount = body.PageCount
+	}
+	if body.ReadPage != 0 {
+		book.ReadPage = body.ReadPage
+	}
+
 	book.Reading = body.Reading
+
 	if book.PageCount == book.ReadPage {
 		book.Finished = true
 	} else {
